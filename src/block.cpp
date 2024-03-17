@@ -13,7 +13,6 @@ Block::Block()
 
 	
 } 
-// a3mel fonction tersom bloc, w ab3thlha id li howa loun colors[id] 5ir bch tfactorisi fonction edhi 
 
 void Block::draw(sf::RenderTexture& texture , int offsetx, int offsety, bool stop,sf::Clock& clock) 
 {
