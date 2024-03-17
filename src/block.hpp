@@ -3,7 +3,6 @@
 #include<map>
 #include"position.hpp"
 #include"colors.hpp"
-#include"BlockRotation.hpp"
 class Block
 
 {
@@ -18,7 +17,6 @@ public :
 	std::map < int, std::map<int,std::vector<Position>> > cells;
 	void Rotate(int i );
 	int getLastRow();
-	void TranslateRotation();
 	bool Pivot;
 	void initialiserPivot();
 

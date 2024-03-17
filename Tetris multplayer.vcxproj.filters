@@ -18,9 +18,6 @@
     <ClCompile Include="src\block.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\BlockRotation.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\Clavier.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -34,9 +31,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\connection.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\draw.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
@@ -68,9 +62,6 @@
     <ClInclude Include="src\block.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
-    <ClInclude Include="src\BlockRotation.hpp">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
     <ClInclude Include="src\blocks.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
@@ -84,9 +75,6 @@
       <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="src\connection.hpp">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\draw.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="src\Game.hpp">
