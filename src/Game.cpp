@@ -29,7 +29,6 @@ Game::Game()
 	}
 	soundRotate.setBuffer(buffer);
 	soundRotate.setVolume(200);
-	//sf::SoundBuffer buffer1;
 	if (!buffer1.loadFromFile("assets/clear.ogg")) { std::cout << "no sound  clear" << std::endl; }
 	soundClear.setBuffer(buffer1);
 	soundClear.setVolume(500);
