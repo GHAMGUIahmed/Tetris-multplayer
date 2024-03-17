@@ -1,6 +1,5 @@
 
-#pragme once 
-
+#pragma once 
 #include <string>
 #include <SFML/Network.hpp>
 
@@ -18,4 +17,3 @@ public:
     void stop();        //Arrêt de l'exécution
     std::string getName(int player);        //Retourne le username du joueur spécifié
 };
-
