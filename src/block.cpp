@@ -161,10 +161,8 @@ sf::Clock clock;
 }
 
 
-/*void Block::TranslateRotation()
-{
-	rotation.Translate() ;
-}*/
+
+
 
 int max_col(std::vector<Position> curentCell)
 {
