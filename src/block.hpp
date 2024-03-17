@@ -21,10 +21,7 @@ public :
 	void TranslateRotation();
 	bool Pivot;
 	void initialiserPivot();
-	bool Wait();
 
-	//int rotationstate;
-	//BlockRotation rotation;
 	int rotationState;
 	int pivot;
 protected: 
