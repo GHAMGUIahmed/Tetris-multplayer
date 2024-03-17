@@ -172,13 +172,11 @@ sfml-window.lib
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\block.cpp" />
-    <ClCompile Include="src\BlockRotation.cpp" />
     <ClCompile Include="src\Clavier.cpp" />
     <ClCompile Include="src\client.cpp" />
     <ClCompile Include="src\colors.cpp" />
     <ClCompile Include="src\common.cpp" />
     <ClCompile Include="src\connection.cpp" />
-    <ClCompile Include="src\draw.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\lobby.cpp" />

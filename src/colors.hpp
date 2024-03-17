@@ -1,5 +1,7 @@
 #pragma once 
-#include<SFML/Graphics.hpp>
+#include<SFML/Graphics.hpp> 
+
+/* on va définir les couleurs utilisés dans le jeu  */
 extern const sf::Color darkGrey;
 extern const sf::Color green;
 extern const sf::Color orange;

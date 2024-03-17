@@ -1,6 +1,5 @@
 
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once 
 
 #include <string>
 #include <SFML/Network.hpp>
@@ -20,4 +19,3 @@ public:
     std::string getName(int player);
 };
 
-#endif //SERVER_H

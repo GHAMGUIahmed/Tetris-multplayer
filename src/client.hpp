@@ -1,6 +1,5 @@
 
-#ifndef CLIENT_H
-#define CLIENT_H
+#pragma once 
 
 #include <string>
 #include <SFML/Network.hpp>
@@ -56,4 +55,4 @@ public:
 
 };
 
-#endif //CLIENT_H
+s
