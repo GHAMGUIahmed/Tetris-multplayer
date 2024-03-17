@@ -12,12 +12,13 @@ using namespace sf;
 void Client::connect() {
 
     connected = true;
-
+    //on essaie de se connecter et on gère l'erreur en cas d'échec
     if (socket.connect(ip, 31621) != Socket::Done) {
         std::cout << "Client failed to connect to server" << std::endl;
         connected = false;
         return;
     }
+    //on envoie le username en cas de connexion et s'il y a échec d'envoi on remet l'état à déconnecté
     std::cout << "Sending username to server... " << std::endl;
     Packet userPacket;
     userPacket << username;
@@ -27,7 +28,7 @@ void Client::connect() {
         return;
     }
 
-
+    //on reçoit l'ID de la part du serveur et on gère l'échec de non réception
     Packet idPacket;
     if (socket.receive(idPacket) != Socket::Done) {
         std::cout << "Failed to get ID froms server" << std::endl;
@@ -37,8 +38,8 @@ void Client::connect() {
     idPacket >> id;
     std::cout << "Client started with ID " << id << std::endl;
 
-    while (connected) {
-
+    while (connected) {            //tant que le client est connecté on acceepte les packets et on les traite type par type
+        
         Packet dPack;
         if (socket.receive(dPack) != sf::Socket::Done) {
             std::cout << "Server couldnt get pack from client " << std::endl;
@@ -48,16 +49,16 @@ void Client::connect() {
 
         int type;
         dPack >> type;
-        if (type == PACKET_TYPE_LOBBY) {
+        if (type == PACKET_TYPE_LOBBY) {        //réception des usernames    
             for (int i = 0; i < 4; i++) {
                 dPack >> users[i];
             }
         }
-        else if (type == PACKET_TYPE_START) {
+        else if (type == PACKET_TYPE_START) {   //réception du signal de début 
             gameStarted = true;
             gameFinished = false;
         }
-        else if (type == PACKET_TYPE_WORLD) {
+        else if (type == PACKET_TYPE_WORLD) {            //réception d'une grille d'un joueur adverse
 
             int id = 0;
             int world[22][10];
@@ -65,38 +66,27 @@ void Client::connect() {
             dPack >> id;
 
             for (int i = 0; i < 22; i++)  for (int j = 0; j < 10; j++) dPack >> world[i][j];
-            /*for (int i = 0; i < 10 * 22; i++) {
-                dPack >>world[i];
-                //std::cout << world[i] << std::endl;
-            }*/
 
             std::cout << "Client got world from " << id << std::endl;
-            //userWorlds[id] = world;
+            
             memcpy(userWorlds[id], world, sizeof(world));
 
         }
-        else if (type == PACKET_TYPE_PIECE) {
+        else if (type == PACKET_TYPE_PIECE){    //réception de la pièce en mouvement d'un joueur adverse
 
             int id;
-            //float x, y;
-
+            
             dPack >> id;
             dPack >> pieceID[id];
 
-            //userPiecePosition[id][0] = x;
-            //userPiecePosition[id][1] = y;
+            
 
             for (int i = 0; i < 4 * 4; i++)
                 dPack >> userPiece[id][i];
 
         }
-        else if (type == PACKET_TYPE_BLOCK) {
 
-            addBlockCount++;
-            dPack >> blockSender;
-
-        }
-        else if (type == PACKET_TYPE_GAMEOVER) {
+        else if (type == PACKET_TYPE_GAMEOVER) {      //réception d'un signal de perte d'un joueur adverse
 
             int id;
             dPack >> id;
@@ -104,7 +94,7 @@ void Client::connect() {
             gameOver[id] = true;
 
         }
-        else if (type == PACKET_TYPE_FINISHGAME) {
+        else if (type == PACKET_TYPE_FINISHGAME) {        //réception d'un signal de fin de jeu et du gagnant
 
             int winner;
             dPack >> winner;
@@ -132,14 +122,14 @@ void Client::send(Packet packet) {
 
 
 Client::Client(std::string name, std::string address) {
-
-
-
+    
+    //initialisation du tableau des noms
     for (int i = 0; i < 4; i++)
         users[i] = "";
-
+    //remise à zéro du jeu
     resetState();
 
+    /initialisation de l'adresse du serveur passé en argument
     ip = address;
 
     std::cout << "Starting client with name " << name << std::endl;
@@ -148,17 +138,16 @@ Client::Client(std::string name, std::string address) {
         users[i] = "?";
     }
 
+    //initialisation du username passé en argument
     username = name;
 
-
-
+    //lancement d'un nouveau thread pour la méthode Client::connect détaché du thread principal
     std::thread th(&Client::connect, this);
     th.detach();
 }
 
 void Client::resetState() {
     std::cout << "Client reset state " << std::endl;
-    // Reset users
     for (int i = 0; i < 4; i++) {
         gameOver[i] = false;
 
@@ -167,7 +156,7 @@ void Client::resetState() {
         for (int x = 0; x < 4 * 4; x++)
             userPiece[i][x] = 0;
     }
-    addBlockCount = 0;
+    
 }
 
 void Client::updateState(Grid* grid) {
@@ -176,13 +165,11 @@ void Client::updateState(Grid* grid) {
     packet << id;
     for (int i = 0; i < 22; i++) {
         for (int j = 0; j < 10; j++) {
+            //envoi des valeurs de chaque cellule de la grille
             packet << grid->grid[i][j];
-            //if (grid->grid[j][i]) std::cout << grid->grid[j][i]<<std::endl;
         }
 
     }
-    //grid->print();
-
     std::cout << "Client sending world" << std::endl;
     send(packet);
 }
@@ -190,10 +177,11 @@ void Client::updateState(Grid* grid) {
 void Client::updatePieceState(Block* piece) {
     Packet packet;
     packet << (int)PACKET_TYPE_PIECE;
-    packet << piece->id;
+    packet << piece->id;  //envoi de l'ID pour identifier la couleur
 
     std::vector<Position> tiles = piece->get_cell_postion();
     for (Position item : tiles) {
+        //envoi des positions x et y de chaque cellule de la pièce
         packet << item.row << item.col;
     }
     std::cout << "Client sending piece" << std::endl;
@@ -203,12 +191,6 @@ void Client::updatePieceState(Block* piece) {
 void Client::sendGameOver() {
     Packet packet;
     packet << (int)PACKET_TYPE_GAMEOVER;
-    send(packet);
-}
-
-void Client::sendBlock() {
-    Packet packet;
-    packet << (int)PACKET_TYPE_BLOCK;
     send(packet);
 }
 
@@ -232,14 +214,13 @@ bool Client::isGameStarted() {
 }
 
 int** Client::getUserWorld(int usr) {
-    //return userWorlds[usr];
     int** tempPtr = new int* [22]; // Alloue un tableau de pointeurs d'int
 
-    // Copier les �l�ments du tableau 2D dans tempPtr
+    // Copier les éléments du tableau 2D dans tempPtr
     for (int i = 0; i < 22; ++i) {
         // Allouer un tableau d'ints pour chaque ligne
         tempPtr[i] = new int[10];
-        // Copier les �l�ments de userWorlds[usr][i] dans tempPtr[i]
+        // Copier les éléments de userWorlds[usr][i] dans tempPtr[i]
         for (int j = 0; j < 10; ++j) {
             tempPtr[i][j] = userWorlds[usr][i][j];
         }
@@ -258,14 +239,6 @@ int* Client::getPiece(int usr) {
 }
 bool Client::getGameOver(int usr) {
     return gameOver[usr];
-}
-
-bool Client::addBlock() {
-    if (addBlockCount > 0) {
-        addBlockCount--;
-        return true;
-    }
-    return false;
 }
 
 
