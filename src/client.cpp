@@ -8,7 +8,6 @@
 #include "common.cpp"
 
 using namespace sf;
-
 void Client::connect() {
 
     connected = true;

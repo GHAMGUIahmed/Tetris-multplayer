@@ -68,13 +68,7 @@ void Tetris::draw()
     grid.draw(render, currentBlock.get_cell_postion());
     currentBlock.draw(render, 11, 11, Animated, clockAnimated);
     nextBlock.draw(render, nextBlock.next_x_offset, nextBlock.next_y_offset, false, clockAnimated);
-    if (client == NULL)
-    {
-        // client->updatePieceState(&currentBlock);
-         //client->updateState(&grid);
-         //drawUserWorlds();
-         //std::cout << "le client Null" << std::endl;
-    }
+   
     render.display();
 
 }

@@ -4,11 +4,6 @@
 
 
 
-/*
-
-RodBellkom tbadlou cells kenchi prog ytneek
-
-*/
 class LBlock :public Block
 {
 public:
@@ -42,7 +37,7 @@ class JBlock : public Block
 public:
 	JBlock() {
 		id = 2;
-		cells[0][1] = { Position(1,0),Position(2,2),Position(2,1),Position(2,0) };
+		cells[0][1] = { Position(3,2),Position(2,2),Position(2,1),Position(2,0) };
 		cells[0][0] = { Position(3,1),Position(2,1),Position(2,0),Position(2,-1) };
 
 		cells[1][0] = { Position(3,1),Position(3,0),Position(2,1),Position(1,1) };
