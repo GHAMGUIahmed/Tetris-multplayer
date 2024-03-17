@@ -2,6 +2,7 @@
 #include"colors.hpp"
 #include"RoundedRectangleShape.hpp" 
 #include<stdio.h>
+
 void Tetris::drawText(sf::String content, int size, float x, float y, bool Gras = false)
 {
     sf::Text text(content, font, size);

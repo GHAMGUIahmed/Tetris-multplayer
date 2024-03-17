@@ -24,7 +24,8 @@ Game::Game()
 	musicGame.setVolume(50);
 	musicGame.play();
 	musicGame.setLoop(true);
-	if (!buffer.loadFromFile("assets/rotate.ogg")) {
+	if (!buffer.loadFromFile("assets/rotate.ogg"))
+	{
 		std::cout << "no sound rotate " << std::endl;
 	}
 	soundRotate.setBuffer(buffer);
@@ -150,7 +151,6 @@ void Game::LockBlock() // pour figer le bloque
 {
 
 	std::vector<Position> tiles = currentBlock.get_cell_postion();
-	std::cout << tiles[0].row << std::endl;
 
 	for (Position item : tiles)
 	{
