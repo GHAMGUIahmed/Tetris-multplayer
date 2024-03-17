@@ -81,7 +81,7 @@ void Client::connect() {
 
             
 
-            for (int i = 0; i < 4 * 4; i++)
+            for (int i = 0; i < 4 * 2; i++)
                 dPack >> userPiece[id][i];
 
         }
