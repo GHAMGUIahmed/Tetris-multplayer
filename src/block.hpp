@@ -20,7 +20,8 @@ public :
 	en garantissant que le bloc puisse tourner dans toutes les configurations possibles de manière appropriée.*/
 	//bool Pivot;
 
-
+	int next_x_offset;
+	int next_y_offset;
 
 	Block();
 	void draw(sf::RenderTexture& texture , int offsetx, int offsety,bool Stop,sf::Clock& clock);
@@ -37,8 +38,7 @@ protected:
 
 	int rowOffset;  /*la position de l'origine de bloc */
 	int colOffset; 
-	int next_x_offset;
-	int next_y_offset;
+	
 };  
 
 int min_col(std::vector<Position> curentCell); 

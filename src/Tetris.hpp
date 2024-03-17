@@ -4,8 +4,6 @@
 #include"server.hpp"
 #include"client.hpp"
 #include<cmath> 
-
-
 class Tetris:public Game
 {
 public:
