@@ -1,6 +1,5 @@
 
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once 
 
 #include <string>
 #include <SFML/Network.hpp>
@@ -20,4 +19,3 @@ public:
     std::string getName(int player);        //Retourne le username du joueur spécifié
 };
 
-#endif //SERVER_H
