@@ -12,13 +12,13 @@ using namespace std;
 Connection::Connection(int id, Server* server, TcpSocket* socket) {
 
     cout << "Starting client connection " << endl;
-
+    //Initialisation des attributs passés en arguments
     this->id = id;
     this->server = server;
     this->socket = socket;
 
     running = true;
-
+    //lancement d'un nouveau thread pour la méthode Connection::run détaché du thread principal
     thread th(&Connection::run, this);
     th.detach();
 
@@ -41,7 +41,7 @@ void Connection::run() {
     cout << "Getting client name... " << endl;
 
     Packet namePacket;
-
+    //réception du username de la connexion et déconnexion en cas d'échec
     if (socket->receive(namePacket) != sf::Socket::Done) {
         cout << "Server couldnt get username from client " << endl;
         running = false;
@@ -55,7 +55,7 @@ void Connection::run() {
     idPacket << id;
     send(idPacket);
     server->sendLobbyData();
-    while (running) {
+    while (running) {       //tant que la connexion s'exécute on reçoit les packets et on les traite type par type
         Packet packet;
         if (socket->receive(packet) != Socket::Done) {
             cout << "Failed to receive pack from client " << endl;
@@ -67,7 +67,7 @@ void Connection::run() {
         int type;
         packet >> type;
 
-        if (type == PACKET_TYPE_WORLD) {
+        if (type == PACKET_TYPE_WORLD) {    //Réception et transmission d'une grille sauf l'expéditeur
 
             int world[10 * 22];
 
@@ -80,41 +80,32 @@ void Connection::run() {
             wPack << (int)PACKET_TYPE_WORLD;
             wPack << id;
 
-            for (int i = 0; i < 220; i++)
+            for (int i = 0; i < 22*10; i++) 
                 wPack << world[i];
 
             server->sendAllExcept(id, wPack);
 
         }
-        else if (type == PACKET_TYPE_PIECE) {
+        else if (type == PACKET_TYPE_PIECE) {    //Réception et transmission d'une pièce sauf à l'expéditeur
 
-            float x, y;
+            
 
-            packet >> x;
-            packet >> y;
-
-            int piece[4 * 4];
-            for (int i = 0; i < 4 * 4; i++) {
+            int piece[4 * 2];
+            for (int i = 0; i < 4 * 2; i++) {
                 packet >> piece[i];
             }
 
             Packet pPack;
             pPack << (int)PACKET_TYPE_PIECE;
-            pPack << id << x << y;
+            pPack << id ;
 
-            for (int i = 0; i < 4 * 4; i++)
+            for (int i = 0; i < 4 * 2; i++)
                 pPack << piece[i];
 
             server->sendAllExcept(id, pPack);
 
         }
-        else if (type == PACKET_TYPE_BLOCK) {
-            Packet scPack;
-            scPack << (int)PACKET_TYPE_BLOCK;
-            scPack << id;
-            server->sendAllExcept(id, scPack);
-        }
-        else if (type == PACKET_TYPE_GAMEOVER) {
+        else if (type == PACKET_TYPE_GAMEOVER) {    //Réception et transmission du signal de perte sauf l'expéditeur
             Packet goPack;
             goPack << (int)PACKET_TYPE_GAMEOVER;
             goPack << id;
