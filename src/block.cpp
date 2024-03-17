@@ -13,7 +13,6 @@ Block::Block()
 
 	
 } 
-// a3mel fonction tersom bloc, w ab3thlha id li howa loun colors[id] 5ir bch tfactorisi fonction edhi 
 
 void Block::draw(sf::RenderTexture& texture , int offsetx, int offsety, bool stop,sf::Clock& clock) 
 {
@@ -92,8 +91,7 @@ void Block::move(int rows , int cols )
 	rowOffset += rows;
 	colOffset += cols;
 	initialiserPivot();
-	/*std::cout << rowOffset << std::endl;
-	std::cout << colOffset << std::endl;*/
+	
 	
 	
 
@@ -152,20 +150,10 @@ void Block::initialiserPivot()
 	}
 }
 
-bool Block::Wait()
-{ 
-sf::Clock clock;
-	if(clock.getElapsedTime().asMicroseconds()>1000)
-	{
-		return true;
-	}
-}
 
 
-/*void Block::TranslateRotation()
-{
-	rotation.Translate() ;
-}*/
+
+
 
 int max_col(std::vector<Position> curentCell)
 {
@@ -178,6 +166,7 @@ int max_col(std::vector<Position> curentCell)
 	return max;
 }
 
+
 int min_row(std::vector<Position> currentCell)
 {
 	int min = 15; 
@@ -187,6 +176,7 @@ int min_row(std::vector<Position> currentCell)
 	}
 	return min;
 }
+
 
 int min_col(std::vector<Position> curentCell)
 {
