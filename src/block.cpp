@@ -9,7 +9,8 @@ Block::Block()
 	colOffset = 5;
 	rotationState = 0;
 	initialiserPivot();
-	
+	next_x_offset = 0;
+	next_y_offset = 0;
 
 	
 } 

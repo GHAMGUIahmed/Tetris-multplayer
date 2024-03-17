@@ -12,7 +12,8 @@ public :
 	// pour réprésenter tous les positions possible que le bloc peut prendre 
 	int rotationState;   // represente la rotation dde bloc, elle est le  premier int de cells 
 	
-	int pivot; /* Le deuxième entier dans la structure cells joue le rôle de  la manipulation des rotations de blocs
+	int pivot;
+	/* Le deuxième entier dans la structure cells joue le rôle de  la manipulation des rotations de blocs
 	dans notre programme. Chaque état de rotation possède un pivot spécifiquement défini, qui se révèle essentiel lors 
 	des rotations vers la droite ou la gauche. En fonction de la position actuelle du bloc, nous déterminons ce pivot.
 	==>Sa fonction principale est de permettre la rotation fluide du bloc, quel que soit le cas rencontré,
@@ -36,6 +37,8 @@ protected:
 
 	int rowOffset;  /*la position de l'origine de bloc */
 	int colOffset; 
+	int next_x_offset;
+	int next_y_offset;
 };  
 
 int min_col(std::vector<Position> curentCell); 
