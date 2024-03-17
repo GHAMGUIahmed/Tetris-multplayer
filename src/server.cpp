@@ -11,7 +11,7 @@
 using namespace std;
 using namespace sf;
 
-Connection* connections[4];
+Connection* connections[4];        //tableau contenant les 4 instances des connexions établies'"p
 
 bool gameOver[4];
 int gameOverCount = 0;
