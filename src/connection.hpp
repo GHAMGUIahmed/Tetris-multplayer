@@ -1,3 +1,27 @@
+/*
+#ifndef CONNECTION_H
+#define CONNECTION_H
+
+#include "server.hpp"
+#include <SFML/Network.hpp>
+
+class Connection {
+
+private:
+    Server* server;    //Pointeur vers l'instance du serveur auquel la connexion est associÃ©e
+    sf::TcpSocket* socket;    //Pointeur vers le socket TCP associÃ© Ã  la connexion 
+    std::string username;      //Username de la connexion     
+    int id;             //ID de la connexion
+    bool running;       //Indique si la connexion est en cours d'exÃ©cution
+public:
+    Connection(int id, Server* server, sf::TcpSocket* socket);
+    void send(sf::Packet packet);  //Envoie un paquet via la connexion
+    void run();         //Fonction de traitement principal de la connexion 
+    void stop();        //ArrÃªt de la connexion
+    std::string getName();      //Retourne le username de la connexion
+};
+
+#endif //CONNECTION_H*/
 
 #ifndef CONNECTION_H
 #define CONNECTION_H
@@ -8,17 +32,17 @@
 class Connection {
 
 private:
-    Server* server;    //Pointeur vers l'instance du serveur auquel la connexion est associée
-    sf::TcpSocket* socket;    //Pointeur vers le socket TCP associé à la connexion 
-    std::string username;      //Username de la connexion     
-    int id;             //ID de la connexion
-    bool running;       //Indique si la connexion est en cours d'exécution
+    Server* server;
+    sf::TcpSocket* socket;
+    std::string username;
+    int id;
+    bool running;
 public:
     Connection(int id, Server* server, sf::TcpSocket* socket);
-    void send(sf::Packet packet);  //Envoie un paquet via la connexion
-    void run();         //Fonction de traitement principal de la connexion 
-    void stop();        //Arrêt de la connexion
-    std::string getName();      //Retourne le username de la connexion
+    void send(sf::Packet packet);
+    void run();
+    void stop();
+    std::string getName();
 };
 
 #endif //CONNECTION_H
