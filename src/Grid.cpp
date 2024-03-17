@@ -28,21 +28,10 @@ void Grid::print()
 std::cout<<std::endl;
 }
 } 
-/*std::vector<sf::Color> Grid::Get_Cell_Color()
-{ 
-	sf::Color darkGrey(26,31,40,255 );
-	sf::Color green= sf::Color::Green;
-	sf::Color red = sf::Color::Red;
-	sf::Color orange(226,116,17,255);
-	sf::Color yellow = sf::Color::Yellow;
-	sf::Color purple (26,31,40,255);
-	sf::Color cyan = sf::Color::Cyan;
-	sf::Color blue= sf::Color::Blue;
-	return{ darkGrey,green,red,orange,yellow,purple,cyan,blue };
 
-} */
 void Grid::draw(sf::RenderTexture& render, std::vector<Position> blockPlace)
-{
+{ 
+	// dessiner le grid 
 	for (int row =0; row<numRows;row++)
 	{ 
 		for (int col=0;col<numCols;col++)
@@ -59,8 +48,9 @@ void Grid::draw(sf::RenderTexture& render, std::vector<Position> blockPlace)
 
 	}
 	}
-	std::vector<Position> WinYt7at = WinyjemYt7at(blockPlace, getLastRow(blockPlace)); 
-	for(Position item:WinYt7at)
+	std::vector<Position> ShadowPOS = PositionShadow(blockPlace, getLastRow(blockPlace)); 
+	// pour dessiner l'ombre de block , changer la bordure des rectangle spécifiques dans le grid 
+	for(Position item:ShadowPOS)
 	{
 		sf::RectangleShape rectangle;
 		rectangle.setSize(sf::Vector2f(cell_size - 1, cell_size - 1));
@@ -101,14 +91,13 @@ bool Grid::IsRowFull(int row  )
 void Grid::ClearRow(int row)
 
 {
-
-
 	for (int col = 0; col < numCols; col++)
 	{
 		grid[row][col] = 0;
 	}
 }
-		
+	
+
  void Grid::MoveRowDown(int row , int number) 
  {
 	 for(int col=0;col<numCols;col++)
@@ -117,9 +106,28 @@ void Grid::ClearRow(int row)
 		 grid[row][col] = 0;
 	 }
  }
+ int Grid::ClearFullRows()
+ {
+	 int completed = 0;
+	 for (int row = numRows - 1; row >= 0; row--)
+	 {
+		 if (IsRowFull(row))
+		 {
+			 ClearRow(row);
+			 completed++;
+		 }
+		 else if (completed > 0)
+		 {
+			 MoveRowDown(row, completed);
+		 }
+	 }
+	 return completed;
+ }
+
+
 
  // cette fonction serve à connaitre la position possible ou on peut dessiner le shadow 
- std::vector<Position> Grid::WinyjemYt7at(std::vector<Position> tiles, int i) // o5or ligne de bloc 
+ std::vector<Position> Grid::PositionShadow(std::vector<Position> tiles, int i)  
  {
 	 
 	 std::vector<Position> cuurent = tiles;
@@ -145,51 +153,6 @@ void Grid::ClearRow(int row)
 
 	
 	
- 
-
-
-
-
-	 
- 
-
- int Grid::ClearFullRows()
- {
-	 int completed = 0; 
-	 for(int row=numRows-1;row>=0;row--)
-	 { 
-		 if(IsRowFull(row))
-		 { 
-			 ClearRow(row);
-			 completed++;
-		 }
-		 else if(completed>0)
-		 {
-			 MoveRowDown(row, completed);
-		 }
-	 }
-	 return completed;
- }
-
- int Grid::LastRowGrid()
- { 
-	
-	 for(int row =numRows-1; row<0;row--)
-	 {
-		 int col = 0;
-		 while(col<numCols)
-		 {
-			 if(!IsCellEmpty(row,col))
-			 {
-				 break;
-
-			 }
-			 col++;
-		 }
-		 if (col == numCols - 1) return row;
-		 
-	 }
- }
 
  int getLastRow(std::vector<Position> tiles)
  {
