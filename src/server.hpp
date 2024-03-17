@@ -1,6 +1,6 @@
 
-#pragma once 
 
+#pragma once 
 #include <string>
 #include <SFML/Network.hpp>
 

@@ -16,7 +16,7 @@ Game::Game()
 	gameOver = false;
 	if (!musicGame.openFromFile("assets/music.ogg"))
 	{
-		std::cout << "error" << std::endl;
+		std::cout << "no music file " << std::endl;
 	}
 
 	if (!font.loadFromFile("assets/Arial.ttf")) std::cout << "error to load ff file " << std::endl;
@@ -25,12 +25,12 @@ Game::Game()
 	musicGame.play();
 	musicGame.setLoop(true);
 	if (!buffer.loadFromFile("assets/rotate.ogg")) {
-		std::cout << "mnjmch nhell t3 rotate" << std::endl;
+		std::cout << "no sound rotate " << std::endl;
 	}
 	soundRotate.setBuffer(buffer);
 	soundRotate.setVolume(200);
 	//sf::SoundBuffer buffer1;
-	if (!buffer1.loadFromFile("assets/clear.ogg")) { std::cout << "mnjmch nhell t3 clear" << std::endl; }
+	if (!buffer1.loadFromFile("assets/clear.ogg")) { std::cout << "no sound  clear" << std::endl; }
 	soundClear.setBuffer(buffer1);
 	soundClear.setVolume(500);
 	if (!DropBuffer.loadFromFile("assets/drop.ogg")) { std::cout << "njmch nhell drop " << std::endl; }
@@ -187,29 +187,6 @@ bool Game::BlockFits()
 	return true;
 
 }
-
-
-/*void Game::LockBlock() // pour figer le bloque 
-{
-	std::vector<Position> tiles = currentBlock.get_cell_postion();
-
-	for (Position item : tiles)
-	{
-		grid.grid[item.row][item.col] = currentBlock.id;
-	}
-	currentBlock = nextBlock;
-	if (!BlockFits())
-	{
-		gameOver = true;
-	}
-	nextBlock = GetRandomBlock();
-	int rowsCleared = grid.ClearFullRows();
-
-	if (rowsCleared > 0)
-	{
-	soundClear.play();
-	}
-}*/
 
 
 void Game::UpdateLevel()
