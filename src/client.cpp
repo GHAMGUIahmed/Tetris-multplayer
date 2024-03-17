@@ -129,7 +129,7 @@ Client::Client(std::string name, std::string address) {
     //remise à zéro du jeu
     resetState();
 
-    /initialisation de l'adresse du serveur passé en argument
+    //initialisation de l'adresse du serveur passé en argument
     ip = address;
 
     std::cout << "Starting client with name " << name << std::endl;
