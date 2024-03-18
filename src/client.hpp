@@ -23,8 +23,8 @@ private:
 
     int userWorlds[4][22][10];    //Les grilles de tous les joueurs
 
-    int a = 0;        //mafhemtch aaleh ken naheha hedhi ycrushi
-    int userPiece[4][4 * 2];      //Les positions des cellules des pièces en mouvement
+    
+    int** userPiece;      //Les positions des cellules des pièces en mouvement
     int pieceID[4];               //Les IDs des pièces en mouvement 
 
     bool gameOver[4];             //Les états des jeux de chaque joueurs
