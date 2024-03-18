@@ -15,11 +15,26 @@ private:
 
     std::string* users = new std::string[4];
 
+<<<<<<< HEAD
     std::string username;
     std::string ip;
 
 
     int id;
+=======
+    std::string username;    //Nom d'utilisateur du client
+    std::string ip;          //Adresse IP du serveur
+
+
+    int id;                 //ID du client
+
+
+    int userWorlds[4][22][10];    //Les grilles de tous les joueurs
+
+    
+    int** userPiece;      //Les positions des cellules des pièces en mouvement
+    int pieceID[4];               //Les IDs des pièces en mouvement 
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
 
 
     int userWorlds[4][22][10];

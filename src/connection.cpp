@@ -12,13 +12,21 @@ using namespace std;
 Connection::Connection(int id, Server* server, TcpSocket* socket) {
 
     cout << "Starting client connection " << endl;
+<<<<<<< HEAD
 
+=======
+    //Initialisation des attributs passés en arguments
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
     this->id = id;
     this->server = server;
     this->socket = socket;
 
     running = true;
+<<<<<<< HEAD
 
+=======
+    //lancement d'un nouveau thread pour la méthode Connection::run détaché du thread principal
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
     thread th(&Connection::run, this);
     th.detach();
 
@@ -41,7 +49,11 @@ void Connection::run() {
     cout << "Getting client name... " << endl;
 
     Packet namePacket;
+<<<<<<< HEAD
 
+=======
+    //réception du username de la connexion et déconnexion en cas d'échec
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
     if (socket->receive(namePacket) != sf::Socket::Done) {
         cout << "Server couldnt get username from client " << endl;
         running = false;
@@ -55,7 +67,11 @@ void Connection::run() {
     idPacket << id;
     send(idPacket);
     server->sendLobbyData();
+<<<<<<< HEAD
     while (running) {
+=======
+    while (running) {       //tant que la connexion s'exécute on reçoit les packets et on les traite type par type
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
         Packet packet;
         if (socket->receive(packet) != Socket::Done) {
             cout << "Failed to receive pack from client " << endl;
@@ -67,7 +83,11 @@ void Connection::run() {
         int type;
         packet >> type;
 
+<<<<<<< HEAD
         if (type == PACKET_TYPE_WORLD) {
+=======
+        if (type == PACKET_TYPE_WORLD) {    //Réception et transmission d'une grille sauf l'expéditeur
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
 
             int world[10 * 22];
 
@@ -80,12 +100,17 @@ void Connection::run() {
             wPack << (int)PACKET_TYPE_WORLD;
             wPack << id;
 
+<<<<<<< HEAD
             for (int i = 0; i < 220; i++)
+=======
+            for (int i = 0; i < 22*10; i++) 
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
                 wPack << world[i];
 
             server->sendAllExcept(id, wPack);
 
         }
+<<<<<<< HEAD
         else if (type == PACKET_TYPE_PIECE) {
 
             float x, y;
@@ -95,19 +120,34 @@ void Connection::run() {
 
             int piece[4 * 4];
             for (int i = 0; i < 4 * 4; i++) {
+=======
+        else if (type == PACKET_TYPE_PIECE) {    //Réception et transmission d'une pièce sauf à l'expéditeur
+
+            
+
+            int piece[4 * 2];
+            for (int i = 0; i < 4 * 2; i++) {
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
                 packet >> piece[i];
             }
 
             Packet pPack;
             pPack << (int)PACKET_TYPE_PIECE;
+<<<<<<< HEAD
             pPack << id << x << y;
 
             for (int i = 0; i < 4 * 4; i++)
+=======
+            pPack << id ;
+
+            for (int i = 0; i < 4 * 2; i++)
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
                 pPack << piece[i];
 
             server->sendAllExcept(id, pPack);
 
         }
+<<<<<<< HEAD
         else if (type == PACKET_TYPE_BLOCK) {
             Packet scPack;
             scPack << (int)PACKET_TYPE_BLOCK;
@@ -115,6 +155,9 @@ void Connection::run() {
             server->sendAllExcept(id, scPack);
         }
         else if (type == PACKET_TYPE_GAMEOVER) {
+=======
+        else if (type == PACKET_TYPE_GAMEOVER) {    //Réception et transmission du signal de perte sauf l'expéditeur
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
             Packet goPack;
             goPack << (int)PACKET_TYPE_GAMEOVER;
             goPack << id;
@@ -126,7 +169,11 @@ void Connection::run() {
 
 }
 
+<<<<<<< HEAD
 std::string Connection::getName()
+=======
+std::string Connection::getName() 
+>>>>>>> d7a4215a380579571e775e683e368a1c617f5731
 {
     return username;
 }
