@@ -2,18 +2,20 @@
 
 Lobby::Lobby()
 {
-    state = None;
-    lobbyFont.loadFromFile("assets/font.otf");
-    lobbyText.setFont(lobbyFont);
-    lobbyText.setCharacterSize(48);
-    texture.loadFromFile("assets/tile.png");
+    state = None;        // Initialise l'état du lobby à None
+    lobbyFont.loadFromFile("assets/font.otf");       // Charge la police de caractères depuis un fichier 
+    lobbyText.setFont(lobbyFont);        // Applique la police de caractères au texte du lobby
+    lobbyText.setCharacterSize(48);        // Définit la taille des caractères du texte du lobby
+    texture.loadFromFile("assets/tile.png");        // Charge la texture utilisée dans le lobby depuis un fichier
 }
 
 void Lobby::update()
 {
-    if (gameStarted) {
-        game->HandleInput();
+    if (gameStarted) {            
 
+        //Si le jeu a commencé on traite l'entrée au clavier du joueur
+        game->HandleInput();
+        //Si on est en mode multijoueur on met à jour l'état de la grille et de la pièce en mouvement au serveur
         if (client != NULL) {
             client->updatePieceState(&(game->currentBlock));
             client->updateState(&(game->grid));
@@ -25,7 +27,7 @@ void Lobby::update()
 
         return;
     }
-
+    //Si on est dans aucun mode, on traite l'entrée du clavier de façon à sélectionner une option 
     if (state == None) {
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Down)) {
             selected++;
@@ -36,7 +38,7 @@ void Lobby::update()
             selected--;
             if (selected < 0)selected = 0;
         }
-
+        //Une fois l'utilisateur sélectionne l'option, on met l'état du lobby et l'état de la saisie selon le choix
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Enter) || KeyboardManager::keyDown(sf::Keyboard::Key::Space)) {
             switch (selected) {
             case 0:
@@ -46,13 +48,13 @@ void Lobby::update()
                 break;
             case 1:
                 state = Join;
-                typing = Address;
+                typing = Address;  //Si le joueur veut rejoindre un jeu, il doit taper tout d'abord l'adresse IP du serveur
                 typeText = "127.0.0.1";
                 break;
             case 2:
                 server = new Server();
                 state = Host;
-                typing = Name;
+                typing = Name;        //Si le joueur veut héberger, on initialise le serveur sur son appareil et il doit juste taper son username
                 break;
             }
         }
@@ -60,7 +62,7 @@ void Lobby::update()
     }
 
     if (typing != Nothing) {
-
+        //On gère l'entrée au clavier
         if (KeyboardManager::keyDown(sf::Keyboard::Key::BackSpace)) {
             typeText = typeText.substr(0, typeText.length() - 1);
         }
@@ -81,17 +83,18 @@ void Lobby::update()
 
     if (state == Host) {
         if (typing == Nothing) {
+            //Si l'hébergeur a tapé son nom et a appuié entrée, on démarre le jeu 
             if (server->isRunning() && KeyboardManager::keyDown(sf::Keyboard::Key::Enter)) {
                 server->startGame();
                 game = new Tetris(client);
                 gameStarted = true;
             }
         }
-
+        
         if (!server->isRunning()) {
             typing = Nothing;
         }
-
+        //Si on tape échap on arrête le serveur
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Escape)) {
             state = None;
             typeText = "";
@@ -102,10 +105,12 @@ void Lobby::update()
     }
 
     if (state == Join && typing == Nothing) {
+        //Si le joueur voulant rejoindre un jeu s'est connecté, on crée l'instance du jeu Tetris et il attend que l'hébergeur démarre
         if (client->isGameStarted() && client->isConnected()) {
             game = new Tetris(client);
             gameStarted = true;
         }
+        //S'il n'est pas connecté on gère l'erreur
         else if (!client->isConnected()) {
             if (KeyboardManager::keyDown(sf::Keyboard::Key::Escape)) {
                 state = None;
@@ -116,15 +121,18 @@ void Lobby::update()
 }
 
 void Lobby::text_input(char c) {
+    //On vérifie si le caractère n'est ni une lettre, ni un chiffre, ni un espace, ni un point
     if (!isalpha(c) && !isdigit(c) && !(c == ' ') && !(c == '.'))
-        return;
+        return;   // Si ce n'est pas le cas, on retourne sans effectuer aucune action
+    //On vérifie s'il y a une saisie en cours
     if (typing != Nothing) {
-        typeText += c;
+        typeText += c; //On ajoute le caractère à la chaîne de texte en cours de saisie
     }
 }
 
 void Lobby::draw(sf::RenderWindow& window)
-{
+{    
+    //Si le jeu a commencé, on affiche la grille, le score et le level de l'utilisateur
     if (gameStarted)
     {
         game->draw();
@@ -133,7 +141,7 @@ void Lobby::draw(sf::RenderWindow& window)
         return;
 
     }
-    
+    //S'il n'y a aucune option choisie, on affiche les options à choisir
     if (state == None)
     {
         lobbyText.setCharacterSize(48);
@@ -144,7 +152,7 @@ void Lobby::draw(sf::RenderWindow& window)
         }
         return;
     }
-
+    //Si l'état de saisie est actif, on affiche ce qu'on demande d'écrire et ce que l'utilisateur écrit
     if (typing != Nothing)
     {
         lobbyText.setCharacterSize(48);
@@ -161,7 +169,7 @@ void Lobby::draw(sf::RenderWindow& window)
         window.draw(lobbyText);
         lobbyText.setFillColor(sf::Color(255, 255, 255));
     }
-
+    //On gère l'affichage lors de l'attenet de la connexion des joueurs
     if (state == Host) {
         lobbyText.setCharacterSize(48);
         lobbyText.setPosition(70, 620);
@@ -206,7 +214,7 @@ void Lobby::draw(sf::RenderWindow& window)
         }
 
     }
-
+    //On gère l'affichage lorsque l'utilisateur attende que l'hébergeur démarre le jeu
     if (state == Join && typing == Nothing) {
 
         lobbyText.setCharacterSize(48);
@@ -261,6 +269,7 @@ void Lobby::draw(sf::RenderWindow& window)
 }
 void Lobby::drawUserWorlds(sf::RenderWindow& window)
 {
+    //Si le jeu a commencé et on est en mode multijoueur, on affiche les grilles des joueurs adverses
     if (client == NULL || !gameStarted) return;
 
     game->drawUserWorlds();
