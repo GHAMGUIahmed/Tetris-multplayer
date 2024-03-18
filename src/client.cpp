@@ -1,4 +1,3 @@
-
 #include <string>
 #include <iostream>
 #include <thread>
@@ -38,7 +37,7 @@ void Client::connect() {
     std::cout << "Client started with ID " << id << std::endl;
 
     while (connected) {            //tant que le client est connecté on acceepte les packets et on les traite type par type
-        
+
         Packet dPack;
         if (socket.receive(dPack) != sf::Socket::Done) {
             std::cout << "Server couldnt get pack from client " << std::endl;
@@ -67,18 +66,18 @@ void Client::connect() {
             for (int i = 0; i < 22; i++)  for (int j = 0; j < 10; j++) dPack >> world[i][j];
 
             std::cout << "Client got world from " << id << std::endl;
-            
+
             memcpy(userWorlds[id], world, sizeof(world));
 
         }
-        else if (type == PACKET_TYPE_PIECE){    //réception de la pièce en mouvement d'un joueur adverse
+        else if (type == PACKET_TYPE_PIECE) {    //réception de la pièce en mouvement d'un joueur adverse
 
             int id;
-            
+
             dPack >> id;
             dPack >> pieceID[id];
 
-            
+
 
             for (int i = 0; i < 4 * 2; i++)
                 dPack >> userPiece[id][i];
@@ -97,7 +96,8 @@ void Client::connect() {
 
             int winner;
             dPack >> winner;
-
+            for (int i = 0; i < 4; i++)   delete userPiece[i];
+            delete userPiece;
             resetState();
 
             gameStarted = false;
@@ -121,7 +121,7 @@ void Client::send(Packet packet) {
 
 
 Client::Client(std::string name, std::string address) {
-    
+
     //initialisation du tableau des noms
     for (int i = 0; i < 4; i++)
         users[i] = "";
@@ -147,15 +147,19 @@ Client::Client(std::string name, std::string address) {
 
 void Client::resetState() {
     std::cout << "Client reset state " << std::endl;
+    userPiece = new int* [4]; // Alloue un tableau de pointeurs d'int
     for (int i = 0; i < 4; i++) {
         gameOver[i] = false;
 
         for (int x = 0; x < 22; x++) for (int y = 0; y < 10; y++)
             userWorlds[i][x][y] = 0;
-        for (int x = 0; x < 4 * 4; x++)
+        
+            // Allouer un tableau d'ints pour chaque ligne
+            userPiece[i] = new int[4*2];
+        for (int x = 0; x < 4 * 2; x++)
             userPiece[i][x] = 0;
     }
-    
+
 }
 
 void Client::updateState(Grid* grid) {
