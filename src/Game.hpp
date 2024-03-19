@@ -5,9 +5,8 @@
 class Game
 {
 
-	public: 
-	Grid grid; 
-
+	
+protected:
 	std::vector<Block> blocks;
 	Block currentBlock; 
 	Block nextBlock;
@@ -36,24 +35,28 @@ class Game
 
 	Game();
 	std::vector<Block> GetAllBlocks();
-	Block GetRandomBlock();
+	Block GetRandomBlock(); 
+	// les mouvements du block 
+
 	void MoveBlockleft();
 	void MoveBlockRight();
 	void MoveBlockDown();
 	void InstantDrop();
 	void RotateBlock(int i);
+	// passer d'un block à un autre block 
 	void LockBlock();
 	bool BlockFits();
-	void Reset();
 	bool IsBlookOutside();
-	void chutelibre();
+	
+	void Reset();
+	void chutelibre(); // pour faire decsendre le block automatiquement 
 	int GetClockChuteMicro();
-
 	void UpdateLevel();
 	void UpdateScore(int linesCleared, int moveDownPoints);
 public:
 
-	void HandleInput();
+	void HandleInput(); // entrée du clavier 
+	Grid grid;
 
 
 

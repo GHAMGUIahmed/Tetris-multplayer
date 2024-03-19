@@ -23,14 +23,14 @@ void Block::draw(sf::RenderTexture& texture , int offsetx, int offsety, bool sto
 		sf::RectangleShape rectangle;  
 		rectangle.setSize(sf::Vector2f(cell_size - 1, cell_size - 1));
 		rectangle.setPosition(item.col * cell_size + offsetx, item.row * cell_size + offsety);
-		colors[id].a = 255;
 
 		rectangle.setFillColor(colors[id]);
 		
 		texture.draw(rectangle);
 
 
-	}
+	} 
+	// c'est pour faire un petite animation qu 'on va figer le bloc 
 	if (stop) {
 		for (Position item : tiles)
 		{
@@ -41,9 +41,6 @@ void Block::draw(sf::RenderTexture& texture , int offsetx, int offsety, bool sto
 
 
 			rectangle1.setFillColor(colors[0]);
-
-			
-
 			while (clock.getElapsedTime().asMilliseconds() > 100)
 			{
 				drawtra(texture, offsetx, offsety);
@@ -67,7 +64,7 @@ void Block::draw(sf::RenderTexture& texture , int offsetx, int offsety, bool sto
 
 	
 }
-
+// utilisé pour l'animantion du figement de block 
 
 void Block::drawtra(sf::RenderTexture& texture , int offsetx, int offsety)
 {
@@ -96,8 +93,9 @@ void Block::move(int rows , int cols )
 	
 	
 
-	
 } 
+
+
 std::vector<Position> Block::get_cell_postion()
 {  
 	std::vector<Position> tiles = cells[rotationState][pivot];
@@ -127,6 +125,8 @@ void Block::Rotate(int i )
 	
 }
 
+
+
 int Block::getLastRow()
 {
 	std::vector<Position> tiles = get_cell_postion();
@@ -137,6 +137,8 @@ int Block::getLastRow()
  	 } 
 	return max; 
 }
+
+
 
 void Block::initialiserPivot()
 { 

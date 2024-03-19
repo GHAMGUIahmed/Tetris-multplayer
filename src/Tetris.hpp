@@ -3,12 +3,14 @@
 #include "Game.hpp"
 #include"server.hpp"
 #include"client.hpp"
-#include<cmath> 
+#include<cmath>  
+/* cette classe est un instance de Game on la définit pour qu'elle soit responsable 
+de dessiner le game en mode offline et online */
 class Tetris :public Game
 {
 public:
 	sf::RenderTexture render;
-	Client* client;
+	Client* client; 
 	bool gameStarted = false;
 	Tetris(Client* cli) :client(cli), gameStarted(false)
 	{

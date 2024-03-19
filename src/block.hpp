@@ -18,19 +18,19 @@ public :
 	des rotations vers la droite ou la gauche. En fonction de la position actuelle du bloc, nous déterminons ce pivot.
 	==>Sa fonction principale est de permettre la rotation fluide du bloc, quel que soit le cas rencontré,
 	en garantissant que le bloc puisse tourner dans toutes les configurations possibles de manière appropriée.*/
-	//bool Pivot;
 
 	int next_x_offset; // offset vertical du bloc lorsque affiché dans next bloc
 	int next_y_offset; // offset vertical du bloc lorsque affiché dans next bloc
 
 	Block();
 	void draw(sf::RenderTexture& texture , int offsetx, int offsety,bool Stop,sf::Clock& clock);
+	// cette fonction pour une raison d'animation quand on fige le block
 	void drawtra(sf::RenderTexture& texture, int offsetx, int offsety);
 	void move(int rows, int cols);
 	std::vector<Position> get_cell_postion(); // retorune les positions courantes du bloc 
 	void Rotate(int i );
 	int getLastRow();
-	void initialiserPivot();
+	void initialiserPivot(); // pour changer la valeur de pivot selon sa pos dans le Grid 
 
 protected: 
 	int cell_size;

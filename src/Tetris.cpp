@@ -1,9 +1,9 @@
 ﻿#include"colors.hpp"
 #include"Tetris.hpp"
 #include"RoundedRectangleShape.hpp" 
-#include<stdio.h>
 
 void Tetris::drawText(sf::String content, int size, float x, float y, bool Gras = false)
+{
 // à utiliser pour l'affichage des différents textes
     sf::Text text(content, font, size);
     text.setFillColor(sf::Color::White);
@@ -28,27 +28,25 @@ void Tetris::drawRectangle(float length, float width, float x, float y)
 
 void Tetris::draw()
 {
-
+    // dessiner le jeu 
 
     render.clear();
 
     sf::Texture BackgroundTexture;
     if (!BackgroundTexture.loadFromFile("assets/OIP.jpg")) std::cout << "no image " << std::endl;
 
-    // G�rer l'erreur si le chargement de l'image �choue
 
 
-// Cr�er un sprite pour afficher l'image
+// background du jeu 
     sf::Sprite background;
     sf::Vector2u TextureSize;  //Added to store texture size.
     sf::Vector2u WindowSize;   //Added to store window size.
     TextureSize = BackgroundTexture.getSize();//Get size of texture.
     sf::Vector2u renderSize = render.getSize();
     float ScaleX = (float)renderSize.x / TextureSize.x;
-    float ScaleY = (float)renderSize.y / TextureSize.y;     //Calculate scale.
-
+    float ScaleY = (float)renderSize.y / TextureSize.y;     
     background.setTexture(BackgroundTexture);
-    background.setScale(ScaleX, ScaleY);      //Set scale.  
+    background.setScale(ScaleX, ScaleY);        
     background.setColor(sf::Color(255, 255, 255, 150));
     render.draw(background);
 
@@ -57,11 +55,14 @@ void Tetris::draw()
     drawRectangle(300, 100, 550, 600);//rectangle du niveau
     drawText("Score", 40, 650, 5); 
     drawText("Next", 40, 640, 250);
+
+
     sf::Text scrtxt(std::to_string(score), font, 70);//convertir le score en objet sf::text
-    int scoresize = scrtxt.getGlobalBounds().width; largeur du score , à utiliser pour centrer le score dans son rectangle. 
+    int scoresize = scrtxt.getGlobalBounds().width; //largeur du score , à utiliser pour centrer le score dans son rectangle. 
     drawText(std::to_string(score), 70, 550 + (300 - scoresize) / 2, 75, true);//affichage du score
     drawText("Level", 40, 650, 550);
     drawText(std::to_string(level), 70, 680, 610, true);// affichage du niveau 
+
     if (gameOver)
     {
         drawText("Game Over ", 40, 600, 750); // affichage du text gameover en cas de perte . 
@@ -75,7 +76,9 @@ void Tetris::draw()
     render.display();
 
 }
+ 
 
+// pour le mode online différencier entre les grids 
 
 void Tetris::drawUserWorlds()
 {
@@ -114,7 +117,6 @@ void Tetris::drawUserWorlds()
             }
             world[i][9] = temp;
         }
-        //std::cout << "client name " << client->getName(usr) << std::endl;
 
         drawText(client->getName(usr), 40, 500, posy, false);
         for (int x = 0; x < 22; x++) {
@@ -135,22 +137,16 @@ void Tetris::drawUserWorlds()
 
 
         }
-        // std::cout <<"client name "<< client->getName(usr) << std::endl;
 
         drawText(client->getName(usr), 40, 500, posy, false);
         int pieceID = client->getPieceID(usr);
         int* piece = client->getPiece(usr);
 
         for (int p = 0; p < 8; p += 2) {
-            /*
-            block.setColor(PIECE_COLOR[piece[p] - 1]);
-            block.setPosition(posx + (p % 4 + piece_x) * tile, posy + (p / 4 + piece_y) * tile);
-            render.draw(block);
-            */
+            
             sf::RectangleShape rectangle;
             rectangle.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
             rectangle.setPosition(piece[p + 1] * mini_cell_size + 1000, posy + piece[p] * mini_cell_size + 50);
-            // colors[pieceID].a = 255;
 
             rectangle.setFillColor(colors[pieceID]);
 
@@ -197,14 +193,10 @@ void Tetris::drawUserWorlds()
 
     for (int p = 0; p < 8; p += 2) {
 
-        /*block.setColor(PIECE_COLOR[piece[p] - 1]);
-        block.setPosition(posx + (p % 4 + piece_x) * tile, posy + (p / 4 + piece_y) * tile);
-        window.draw(block);*/
-
+        
         sf::RectangleShape rectangle;
         rectangle.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
         rectangle.setPosition(piece[p + 1] * mini_cell_size + posx, posy + piece[p] * mini_cell_size + 11);
-        // colors[pieceID].a = 255;
 
         rectangle.setFillColor(colors[pieceID]);
 

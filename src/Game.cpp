@@ -16,7 +16,7 @@ Game::Game()
 	gameOver = false;
 	if (!musicGame.openFromFile("assets/music.ogg"))
 	{
-		std::cout << "no music file " << std::endl;
+		std::cout << "error" << std::endl;
 	}
 
 	if (!font.loadFromFile("assets/Arial.ttf")) std::cout << "error to load ff file " << std::endl;
@@ -24,13 +24,13 @@ Game::Game()
 	musicGame.setVolume(50);
 	musicGame.play();
 	musicGame.setLoop(true);
-	if (!buffer.loadFromFile("assets/rotate.ogg"))
-	{
-		std::cout << "no sound rotate " << std::endl;
+	if (!buffer.loadFromFile("assets/rotate.ogg")) {
+		std::cout << "mnjmch nhell t3 rotate" << std::endl;
 	}
 	soundRotate.setBuffer(buffer);
 	soundRotate.setVolume(200);
-	if (!buffer1.loadFromFile("assets/clear.ogg")) { std::cout << "no sound  clear" << std::endl; }
+	//sf::SoundBuffer buffer1;
+	if (!buffer1.loadFromFile("assets/clear.ogg")) { std::cout << "mnjmch nhell t3 clear" << std::endl; }
 	soundClear.setBuffer(buffer1);
 	soundClear.setVolume(500);
 	if (!DropBuffer.loadFromFile("assets/drop.ogg")) { std::cout << "njmch nhell drop " << std::endl; }
@@ -41,7 +41,7 @@ Game::Game()
 std::vector<Block> Game::GetAllBlocks()
 {
 
-	return { IBlock(), JBlock(), LBlock(), OBlock(), TBlock(), ZBlock() };
+	return { OBlock(),TBlock(),IBlock(),SBlock(),ZBlock(), LBlock(),JBlock() };
 
 }
 
@@ -51,6 +51,7 @@ Block Game::GetRandomBlock()
 	{
 		blocks = GetAllBlocks();
 	}
+	// pour avoir le même block si tous les blocks ont été donnés 
 	int radomIndex = rand() % blocks.size();
 	Block block = blocks[radomIndex];
 	blocks.erase(blocks.begin() + radomIndex);
@@ -61,7 +62,7 @@ Block Game::GetRandomBlock()
 
 void Game::MoveBlockleft()
 {
-	if (!gameOver) 
+	if (!gameOver)
 	{
 		currentBlock.move(0, -1);
 		if (IsBlookOutside() || !BlockFits()) MoveBlockRight();
@@ -94,6 +95,7 @@ void Game::MoveBlockDown()
 
 	}
 }
+
 void Game::InstantDrop()
 {
 	if (!gameOver) {
@@ -111,16 +113,17 @@ void Game::InstantDrop()
 		Drop.play();
 	}
 }
+
 void Game::chutelibre()
 {
-	
-		if (ClockChute.getElapsedTime().asMilliseconds() > GetClockChuteMicro())
-		{
 
-		
-			MoveBlockDown();
-			ClockChute.restart();
-		}
+	if (ClockChute.getElapsedTime().asMilliseconds() > GetClockChuteMicro())
+	{
+
+
+		MoveBlockDown();
+		ClockChute.restart();
+	}
 }
 
 
@@ -151,6 +154,7 @@ void Game::LockBlock() // pour figer le bloque
 {
 
 	std::vector<Position> tiles = currentBlock.get_cell_postion();
+	std::cout << tiles[0].row << std::endl;
 
 	for (Position item : tiles)
 	{
@@ -175,7 +179,7 @@ void Game::LockBlock() // pour figer le bloque
 }
 
 
-bool Game::BlockFits()
+bool Game::BlockFits() 
 {
 	std::vector<Position> tiles = currentBlock.get_cell_postion();
 	for (Position item : tiles)
@@ -188,9 +192,12 @@ bool Game::BlockFits()
 }
 
 
+
+
+
 void Game::UpdateLevel()
-{ 
-	level = BlockGiven / 10+1;
+{
+	level = BlockGiven / 10 + 1;
 }
 
 void Game::UpdateScore(int LinesCleared, int moveDownPoints)
@@ -198,19 +205,20 @@ void Game::UpdateScore(int LinesCleared, int moveDownPoints)
 	switch (LinesCleared)
 	{
 	case 1:
-		score += 100;
+		score += 40 * (level + 1);
 		break;
 	case 2:
-		score += 300;
+		score += 100 * (level + 1);
 		break;
 	case 3:
-		score += 500;
+		score += 300 * (level + 1);
 		break;
+	case 4:
+		score += 1200 * (level + 1);
 	default:
 		break;
 
 	}
-	score += moveDownPoints;
 }
 
 void Game::HandleInput()
@@ -221,7 +229,7 @@ void Game::HandleInput()
 		gameOver = false;
 		Reset();
 	}
-	if(KeyboardManager::keyDown(sf::Keyboard::Left))
+	if (KeyboardManager::keyDown(sf::Keyboard::Left))
 	{
 		MoveBlockleft();
 
@@ -232,7 +240,7 @@ void Game::HandleInput()
 	}
 	if (KeyboardManager::keyDown((sf::Keyboard::Down)))
 	{
-		MoveBlockDown();	
+		MoveBlockDown();
 	}
 	if (KeyboardManager::keyDown((sf::Keyboard::Space)))
 	{
@@ -261,14 +269,14 @@ void Game::Reset()
 	BlockGiven = 0;
 }
 int  Game::GetClockChuteMicro()
-{  
+{
 	switch (level)
-	{ 
+	{
 	case 1: return 1000;
 	case 2: return 800;
 	case 3: return 600;
 	case 4: return 500;
-	case 5: return 300; 
+	case 5: return 300;
 	case 6: return 250;
 	case 7: return 100;
 	case 8: return 50;
