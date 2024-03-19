@@ -8,9 +8,7 @@ class Game
 	
 protected:
 	std::vector<Block> blocks;
-	Block currentBlock; 
-	Block nextBlock;
-
+	
 	bool Animated; 
 	int BlockGiven; 
 	bool gameOver;
@@ -56,6 +54,8 @@ protected:
 public:
 
 	void HandleInput(); // entrée du clavier 
+	Block currentBlock;
+	Block nextBlock;
 	Grid grid;
 
 
