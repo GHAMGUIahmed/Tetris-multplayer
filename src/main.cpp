@@ -9,7 +9,7 @@ int main()
     window.setFramerateLimit(120);
     sf::Color background = sf::Color(10, 10, 10);
     sf::Image icon;
-    if (!icon.loadFromFile("icon.jpg")) std::cout << "no icon " << std::endl;
+    if (!icon.loadFromFile("assets/icon.jpg")) std::cout << "no icon " << std::endl;
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     bool focus = false;
