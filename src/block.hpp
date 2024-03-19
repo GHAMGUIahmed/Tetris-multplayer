@@ -9,19 +9,19 @@ class Block
 public : 
 	int id;
 	std::map < int, std::map<int, std::vector<Position>> > cells; 
-	// pour rÈprÈsenter tous les positions possible que le bloc peut prendre 
+	// pour r√©pr√©senter tous les positions possible que le bloc peut prendre 
 	int rotationState;   // represente la rotation dde bloc, elle est le  premier int de cells 
 	
 	int pivot;
-	/* Le deuxiËme entier dans la structure cells joue le rÙle de  la manipulation des rotations de blocs
-	dans notre programme. Chaque Ètat de rotation possËde un pivot spÈcifiquement dÈfini, qui se rÈvËle essentiel lors 
-	des rotations vers la droite ou la gauche. En fonction de la position actuelle du bloc, nous dÈterminons ce pivot.
-	==>Sa fonction principale est de permettre la rotation fluide du bloc, quel que soit le cas rencontrÈ,
-	en garantissant que le bloc puisse tourner dans toutes les configurations possibles de maniËre appropriÈe.*/
+	/* Le deuxi√®me entier dans la structure cells joue le r√¥le de  la manipulation des rotations de blocs
+	dans notre programme. Chaque √©tat de rotation poss√®de un pivot sp√©cifiquement d√©fini, qui se r√©v√®le essentiel lors 
+	des rotations vers la droite ou la gauche. En fonction de la position actuelle du bloc, nous d√©terminons ce pivot.
+	==>Sa fonction principale est de permettre la rotation fluide du bloc, quel que soit le cas rencontr√©,
+	en garantissant que le bloc puisse tourner dans toutes les configurations possibles de mani√®re appropri√©e.*/
 	//bool Pivot;
 
-	int next_x_offset;
-	int next_y_offset;
+	int next_x_offset; // offset vertical du bloc lorsque affich√© dans next bloc
+	int next_y_offset; // offset vertical du bloc lorsque affich√© dans next bloc
 
 	Block();
 	void draw(sf::RenderTexture& texture , int offsetx, int offsety,bool Stop,sf::Clock& clock);

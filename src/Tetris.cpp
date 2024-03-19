@@ -4,7 +4,7 @@
 #include<stdio.h>
 
 void Tetris::drawText(sf::String content, int size, float x, float y, bool Gras = false)
-{
+// à utiliser pour l'affichage des différents textes
     sf::Text text(content, font, size);
     text.setFillColor(sf::Color::White);
     text.setPosition(x, y);
@@ -14,6 +14,8 @@ void Tetris::drawText(sf::String content, int size, float x, float y, bool Gras 
 
 }
 void Tetris::drawRectangle(float length, float width, float x, float y)
+// à utiliser pour l'affichage des différents rectangles 
+
 {
     sf::RoundedRectangleShape rectangle(sf::Vector2f(length, width), 10, 10);
     rectangle.setPosition(x, y);
@@ -50,19 +52,19 @@ void Tetris::draw()
     background.setColor(sf::Color(255, 255, 255, 150));
     render.draw(background);
 
-    drawRectangle(300, 100, 550, 70);
-    drawRectangle(250, 180, 550, 300);
-    drawRectangle(300, 100, 550, 600);
-    drawText("Score", 40, 650, 5);
+    drawRectangle(300, 100, 550, 70); // rectangle du score.
+    drawRectangle(250, 180, 550, 300); // rectangle du bloc suivant.
+    drawRectangle(300, 100, 550, 600);//rectangle du niveau
+    drawText("Score", 40, 650, 5); 
     drawText("Next", 40, 640, 250);
-    sf::Text scrtxt(std::to_string(score), font, 70);
-    int scoresize = scrtxt.getGlobalBounds().width;
-    drawText(std::to_string(score), 70, 550 + (300 - scoresize) / 2, 75, true);
+    sf::Text scrtxt(std::to_string(score), font, 70);//convertir le score en objet sf::text
+    int scoresize = scrtxt.getGlobalBounds().width; largeur du score , à utiliser pour centrer le score dans son rectangle. 
+    drawText(std::to_string(score), 70, 550 + (300 - scoresize) / 2, 75, true);//affichage du score
     drawText("Level", 40, 650, 550);
-    drawText(std::to_string(level), 70, 680, 610, true);
+    drawText(std::to_string(level), 70, 680, 610, true);// affichage du niveau 
     if (gameOver)
     {
-        drawText("Game Over ", 40, 600, 750);
+        drawText("Game Over ", 40, 600, 750); // affichage du text gameover en cas de perte . 
         if (client != NULL) client->sendGameOver();
 
     }
