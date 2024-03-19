@@ -3,7 +3,8 @@
 #include<iostream> 
 
 
-
+// la fonction move est utilisé pour que les blocs aparaissent en haut et au milieux du grid . 
+// les valeurs de next_offset et les valeurs passées dans la fonctions move différent d'un bloc à un autre , en fonction de cellules occupées pour chaque bloc . 
 class LBlock :public Block
 {
 public:
