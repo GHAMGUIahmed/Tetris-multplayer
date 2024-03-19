@@ -21,7 +21,7 @@ Pour installer et exécuter le jeu, suivez les étapes suivantes :
 Une fois le jeu lancé, vous avez deux options de jeu :
 
 - **Solo (Joueur unique)**:
-  - Choisissez l'option "Solo" ou "SinglePlayer" dans le menu principal pour jouer en solo. Affrontez le défi du Tetris seul et essayez d'obtenir le meilleur score.
+  - Choisissez l'option  "SinglePlayer" dans le menu principal pour jouer en solo. Affrontez le défi du Tetris seul et essayez d'obtenir le meilleur score.
 
 - **Multijoueur**:
   - Sélectionnez l'option "Join Game" dans le menu principal pour rejoindre une partie en ligne avec vos amis sur le même réseau local.
