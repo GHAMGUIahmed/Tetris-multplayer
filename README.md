@@ -36,6 +36,4 @@ Une fois le jeu lancé, vous avez deux options de jeu :
 
 Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet, veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter, ou soumettre directement une pull request.
 
-## Licence
 
-Ce projet est sous licence [MIT](LICENSE).
