@@ -1,14 +1,14 @@
-C:\Users\ghamg\Desktop\git\src\block.cpp;C:\Users\ghamg\Desktop\git\inter\block.obj
-C:\Users\ghamg\Desktop\git\src\Clavier.cpp;C:\Users\ghamg\Desktop\git\inter\Clavier.obj
-C:\Users\ghamg\Desktop\git\src\client.cpp;C:\Users\ghamg\Desktop\git\inter\client.obj
-C:\Users\ghamg\Desktop\git\src\colors.cpp;C:\Users\ghamg\Desktop\git\inter\colors.obj
-C:\Users\ghamg\Desktop\git\src\common.cpp;C:\Users\ghamg\Desktop\git\inter\common.obj
-C:\Users\ghamg\Desktop\git\src\connection.cpp;C:\Users\ghamg\Desktop\git\inter\connection.obj
-C:\Users\ghamg\Desktop\git\src\Game.cpp;C:\Users\ghamg\Desktop\git\inter\Game.obj
-C:\Users\ghamg\Desktop\git\src\Grid.cpp;C:\Users\ghamg\Desktop\git\inter\Grid.obj
-C:\Users\ghamg\Desktop\git\src\lobby.cpp;C:\Users\ghamg\Desktop\git\inter\lobby.obj
-C:\Users\ghamg\Desktop\git\src\main.cpp;C:\Users\ghamg\Desktop\git\inter\main.obj
-C:\Users\ghamg\Desktop\git\src\position.cpp;C:\Users\ghamg\Desktop\git\inter\position.obj
-C:\Users\ghamg\Desktop\git\src\RoundedRenctangleShape.cpp;C:\Users\ghamg\Desktop\git\inter\RoundedRenctangleShape.obj
-C:\Users\ghamg\Desktop\git\src\server.cpp;C:\Users\ghamg\Desktop\git\inter\server.obj
-C:\Users\ghamg\Desktop\git\src\Tetris.cpp;C:\Users\ghamg\Desktop\git\inter\Tetris.obj
+C:\Users\ghamg\Desktop\tetris final\src\block.cpp;C:\Users\ghamg\Desktop\tetris final\inter\block.obj
+C:\Users\ghamg\Desktop\tetris final\src\Clavier.cpp;C:\Users\ghamg\Desktop\tetris final\inter\Clavier.obj
+C:\Users\ghamg\Desktop\tetris final\src\client.cpp;C:\Users\ghamg\Desktop\tetris final\inter\client.obj
+C:\Users\ghamg\Desktop\tetris final\src\colors.cpp;C:\Users\ghamg\Desktop\tetris final\inter\colors.obj
+C:\Users\ghamg\Desktop\tetris final\src\common.cpp;C:\Users\ghamg\Desktop\tetris final\inter\common.obj
+C:\Users\ghamg\Desktop\tetris final\src\connection.cpp;C:\Users\ghamg\Desktop\tetris final\inter\connection.obj
+C:\Users\ghamg\Desktop\tetris final\src\Game.cpp;C:\Users\ghamg\Desktop\tetris final\inter\Game.obj
+C:\Users\ghamg\Desktop\tetris final\src\Grid.cpp;C:\Users\ghamg\Desktop\tetris final\inter\Grid.obj
+C:\Users\ghamg\Desktop\tetris final\src\lobby.cpp;C:\Users\ghamg\Desktop\tetris final\inter\lobby.obj
+C:\Users\ghamg\Desktop\tetris final\src\main.cpp;C:\Users\ghamg\Desktop\tetris final\inter\main.obj
+C:\Users\ghamg\Desktop\tetris final\src\position.cpp;C:\Users\ghamg\Desktop\tetris final\inter\position.obj
+C:\Users\ghamg\Desktop\tetris final\src\RoundedRenctangleShape.cpp;C:\Users\ghamg\Desktop\tetris final\inter\RoundedRenctangleShape.obj
+C:\Users\ghamg\Desktop\tetris final\src\server.cpp;C:\Users\ghamg\Desktop\tetris final\inter\server.obj
+C:\Users\ghamg\Desktop\tetris final\src\Tetris.cpp;C:\Users\ghamg\Desktop\tetris final\inter\Tetris.obj

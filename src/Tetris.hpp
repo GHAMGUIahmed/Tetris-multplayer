@@ -4,7 +4,7 @@
 #include"server.hpp"
 #include"client.hpp"
 #include<cmath> 
-class Tetris:public Game
+class Tetris :public Game
 {
 public:
 	sf::RenderTexture render;
@@ -15,7 +15,7 @@ public:
 		render.create(3000, 2000);
 
 	}
-	void drawText(sf::String content, int size, float x, float  y,bool Gras);
+	void drawText(sf::String content, int size, float x, float  y, bool Gras);
 	void drawRectangle(float length, float width, float x, float y);
 	void drawUserWorlds();
 	void draw();

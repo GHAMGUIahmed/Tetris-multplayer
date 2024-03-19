@@ -1,5 +1,5 @@
-﻿#include "Tetris.hpp"
-#include"colors.hpp"
+﻿#include"colors.hpp"
+#include"Tetris.hpp"
 #include"RoundedRectangleShape.hpp" 
 #include<stdio.h>
 
@@ -69,7 +69,7 @@ void Tetris::draw()
     grid.draw(render, currentBlock.get_cell_postion());
     currentBlock.draw(render, 11, 11, Animated, clockAnimated);
     nextBlock.draw(render, nextBlock.next_x_offset, nextBlock.next_y_offset, false, clockAnimated);
-   
+
     render.display();
 
 }
@@ -211,8 +211,3 @@ void Tetris::drawUserWorlds()
 
     render.display();
 }
-
-
-
-
-

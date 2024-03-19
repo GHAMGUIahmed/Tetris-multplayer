@@ -1,4 +1,3 @@
-#pragma once 
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -25,39 +24,39 @@ class Lobby
         Nothing
     };
 
-    State state;        //État actuel du lobby
-    sf::Font lobbyFont;        // Police de caractères pour le lobby
-    sf::Text lobbyText;        // Texte utilisé dans le lobby
-    sf::Texture texture;       // Texture utilisée dans le lobby 
+    State state;
+    sf::Font lobbyFont;
+    sf::Text lobbyText;
+    sf::Texture texture;
 
-    Server* server;            // Pointeur vers l'instance du serveur 
-    Client* client;            // Pointeur vers l'instance du client
+    Server* server;
+    Client* client;
 
-    Tetris* game;               // Pointeur vers l'instance du jeu Tetris
+    Tetris* game;
 
-    bool gameStarted = false;        //Indique si le jeu a commencé
-    Typing typing = Nothing;         // État de la saisie
-    std::string typeText = "";       //Texte en cours de saisie
-    std::string address = "127.0.0.1";        //Adresse IP par défaut (localhost)
+    bool gameStarted = false;
+    Typing typing = Nothing;
+    std::string typeText = "";
+    std::string address = "127.0.0.1";
 
-    std::string options[3] =           //Options du jeu 
+    std::string options[3] =
     {
     "Singleplayer",
     "Join game",
     "Host game"
     };
 
-    int selected = 0;            //Indice de l'option sélectionnée
+    int selected = 0;
 
 public:
-    static bool KEYBOARD_FOCUS;        //Indique si le focus clavier est sur la fenêtre du lobby
+    static bool KEYBOARD_FOCUS;
 
 
     Lobby();
-    void update();        //Met à jour l'état du lobby
-    void draw(sf::RenderWindow& window);        //Dessine le contenu du lobby sur la fenêtre
-    void text_input(char c);            //Gère la saisie de texte dans le lobby
-    void drawUserWorlds(sf::RenderWindow& window);    //Dessine les grilles des joueurs adverses sur la fenêtre
+    void update();
+    void draw(sf::RenderWindow& window);
+    void text_input(char c);
+    void drawUserWorlds(sf::RenderWindow& window);
 
 
 };

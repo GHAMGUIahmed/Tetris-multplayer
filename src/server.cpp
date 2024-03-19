@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include <thread>
 #include <SFML/Network.hpp>
@@ -11,20 +11,20 @@
 using namespace std;
 using namespace sf;
 
-Connection* connections[4];         //tableau contenant les 4 instances des connexions établies
+Connection* connections[4];         //tableau contenant les 4 instances des connexions �tablies
 
-bool gameOver[4];               //états des jeux des joueurs
+bool gameOver[4];               //�tats des jeux des joueurs
 int gameOverCount = 0;          //nombres de joueurs perdants <4
-bool inGame = false;            //indique si le jeu a commencé
+bool inGame = false;            //indique si le jeu a commenc�
 
 int num_connections = 0;        //nombre de connexions
-bool running = true;            //indique si le serveur est en exécution
+bool running = true;            //indique si le serveur est en ex�cution
 TcpListener tcpListener;
 
 Server::Server() {
     cout << "Starting server..." << endl;
-    //lancement d'un nouveau thread pour la méthode Server::run détaché du thread principal
-    thread th(&Server::run, this);   
+    //lancement d'un nouveau thread pour la m�thode Server::run d�tach� du thread principal
+    thread th(&Server::run, this);
     th.detach();
 }
 
@@ -58,14 +58,14 @@ void Server::setGameOver(int id) {
     int gameOverCount = 0;
     int winner = 0;
 
-    //compte le nombre de joueurs perdants ou déconnectés
+    //compte le nombre de joueurs perdants ou d�connect�s
     for (int i = 0; i < 4; i++) {
         if (gameOver[i] || connections[i] == NULL)
             gameOverCount++;
         else
             winner = i;
     }
-    //si le jeu est terminé càd gameOverCount>=3 on réinitialise le tout et on envoie un signal de fin
+    //si le jeu est termin� c�d gameOverCount>=3 on r�initialise le tout et on envoie un signal de fin
     if (gameOverCount >= 3) {
 
         for (int i = 0; i < 4; i++) {
@@ -135,8 +135,8 @@ void Server::run() {
     }
     cout << "Server listening on port 31621" << endl;
 
-    while (running) {     //tant que le serveur est en exécution et le nombre de connexions est
-                          //inférieur à 4, il continue à accepter des connexions
+    while (running) {     //tant que le serveur est en ex�cution et le nombre de connexions est
+        //inf�rieur � 4, il continue � accepter des connexions
 
         if (num_connections == 4)
             continue;

@@ -96,8 +96,7 @@ void Client::connect() {
 
             int winner;
             dPack >> winner;
-            for (int i = 0; i < 4; i++)   delete userPiece[i];
-            delete userPiece;
+
             resetState();
 
             gameStarted = false;
@@ -110,7 +109,8 @@ void Client::connect() {
         }
 
     }
-
+    for (int i = 0; i < 4; i++)   delete userPiece[i];
+    delete userPiece;
 }
 
 void Client::send(Packet packet) {
@@ -153,9 +153,9 @@ void Client::resetState() {
 
         for (int x = 0; x < 22; x++) for (int y = 0; y < 10; y++)
             userWorlds[i][x][y] = 0;
-        
-            // Allouer un tableau d'ints pour chaque ligne
-            userPiece[i] = new int[4*2];
+
+        // Allouer un tableau d'ints pour chaque ligne
+        userPiece[i] = new int[4 * 2];
         for (int x = 0; x < 4 * 2; x++)
             userPiece[i][x] = 0;
     }

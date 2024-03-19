@@ -98,5 +98,11 @@
     <ClInclude Include="src\Tetris.hpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
+    <ClInclude Include="src\BlockRotation.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\draw.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

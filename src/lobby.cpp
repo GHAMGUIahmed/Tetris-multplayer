@@ -2,20 +2,18 @@
 
 Lobby::Lobby()
 {
-    state = None;        // Initialise l'état du lobby à None
-    lobbyFont.loadFromFile("assets/font.otf");       // Charge la police de caractères depuis un fichier 
-    lobbyText.setFont(lobbyFont);        // Applique la police de caractères au texte du lobby
-    lobbyText.setCharacterSize(48);        // Définit la taille des caractères du texte du lobby
-    texture.loadFromFile("assets/tile.png");        // Charge la texture utilisée dans le lobby depuis un fichier
+    state = None;
+    lobbyFont.loadFromFile("assets/font.otf");
+    lobbyText.setFont(lobbyFont);
+    lobbyText.setCharacterSize(48);
+    texture.loadFromFile("assets/tile.png");
 }
 
 void Lobby::update()
 {
-    if (gameStarted) {            
-
-        //Si le jeu a commencé on traite l'entrée au clavier du joueur
+    if (gameStarted) {
         game->HandleInput();
-        //Si on est en mode multijoueur on met à jour l'état de la grille et de la pièce en mouvement au serveur
+
         if (client != NULL) {
             client->updatePieceState(&(game->currentBlock));
             client->updateState(&(game->grid));
@@ -27,7 +25,7 @@ void Lobby::update()
 
         return;
     }
-    //Si on est dans aucun mode, on traite l'entrée du clavier de façon à sélectionner une option 
+
     if (state == None) {
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Down)) {
             selected++;
@@ -38,7 +36,7 @@ void Lobby::update()
             selected--;
             if (selected < 0)selected = 0;
         }
-        //Une fois l'utilisateur sélectionne l'option, on met l'état du lobby et l'état de la saisie selon le choix
+
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Enter) || KeyboardManager::keyDown(sf::Keyboard::Key::Space)) {
             switch (selected) {
             case 0:
@@ -48,13 +46,13 @@ void Lobby::update()
                 break;
             case 1:
                 state = Join;
-                typing = Address;  //Si le joueur veut rejoindre un jeu, il doit taper tout d'abord l'adresse IP du serveur
+                typing = Address;
                 typeText = "127.0.0.1";
                 break;
             case 2:
                 server = new Server();
                 state = Host;
-                typing = Name;        //Si le joueur veut héberger, on initialise le serveur sur son appareil et il doit juste taper son username
+                typing = Name;
                 break;
             }
         }
@@ -62,7 +60,7 @@ void Lobby::update()
     }
 
     if (typing != Nothing) {
-        //On gère l'entrée au clavier
+
         if (KeyboardManager::keyDown(sf::Keyboard::Key::BackSpace)) {
             typeText = typeText.substr(0, typeText.length() - 1);
         }
@@ -83,18 +81,17 @@ void Lobby::update()
 
     if (state == Host) {
         if (typing == Nothing) {
-            //Si l'hébergeur a tapé son nom et a appuié entrée, on démarre le jeu 
             if (server->isRunning() && KeyboardManager::keyDown(sf::Keyboard::Key::Enter)) {
                 server->startGame();
                 game = new Tetris(client);
                 gameStarted = true;
             }
         }
-        
+
         if (!server->isRunning()) {
             typing = Nothing;
         }
-        //Si on tape échap on arrête le serveur
+
         if (KeyboardManager::keyDown(sf::Keyboard::Key::Escape)) {
             state = None;
             typeText = "";
@@ -105,12 +102,10 @@ void Lobby::update()
     }
 
     if (state == Join && typing == Nothing) {
-        //Si le joueur voulant rejoindre un jeu s'est connecté, on crée l'instance du jeu Tetris et il attend que l'hébergeur démarre
         if (client->isGameStarted() && client->isConnected()) {
             game = new Tetris(client);
             gameStarted = true;
         }
-        //S'il n'est pas connecté on gère l'erreur
         else if (!client->isConnected()) {
             if (KeyboardManager::keyDown(sf::Keyboard::Key::Escape)) {
                 state = None;
@@ -121,18 +116,15 @@ void Lobby::update()
 }
 
 void Lobby::text_input(char c) {
-    //On vérifie si le caractère n'est ni une lettre, ni un chiffre, ni un espace, ni un point
     if (!isalpha(c) && !isdigit(c) && !(c == ' ') && !(c == '.'))
-        return;   // Si ce n'est pas le cas, on retourne sans effectuer aucune action
-    //On vérifie s'il y a une saisie en cours
+        return;
     if (typing != Nothing) {
-        typeText += c; //On ajoute le caractère à la chaîne de texte en cours de saisie
+        typeText += c;
     }
 }
 
 void Lobby::draw(sf::RenderWindow& window)
-{    
-    //Si le jeu a commencé, on affiche la grille, le score et le level de l'utilisateur
+{
     if (gameStarted)
     {
         game->draw();
@@ -141,7 +133,12 @@ void Lobby::draw(sf::RenderWindow& window)
         return;
 
     }
-    //S'il n'y a aucune option choisie, on affiche les options à choisir
+    /* lobbyText.setFillColor(sf::Color(255, 255, 255));
+     lobbyText.setCharacterSize(64);
+     lobbyText.setString("C++tris");
+     lobbyText.setPosition(70, 550);
+     window.draw(lobbyText);
+     if (typing != Nothing)*/
     if (state == None)
     {
         lobbyText.setCharacterSize(48);
@@ -152,7 +149,7 @@ void Lobby::draw(sf::RenderWindow& window)
         }
         return;
     }
-    //Si l'état de saisie est actif, on affiche ce qu'on demande d'écrire et ce que l'utilisateur écrit
+
     if (typing != Nothing)
     {
         lobbyText.setCharacterSize(48);
@@ -169,7 +166,7 @@ void Lobby::draw(sf::RenderWindow& window)
         window.draw(lobbyText);
         lobbyText.setFillColor(sf::Color(255, 255, 255));
     }
-    //On gère l'affichage lors de l'attenet de la connexion des joueurs
+
     if (state == Host) {
         lobbyText.setCharacterSize(48);
         lobbyText.setPosition(70, 620);
@@ -214,7 +211,7 @@ void Lobby::draw(sf::RenderWindow& window)
         }
 
     }
-    //On gère l'affichage lorsque l'utilisateur attende que l'hébergeur démarre le jeu
+
     if (state == Join && typing == Nothing) {
 
         lobbyText.setCharacterSize(48);
@@ -269,11 +266,155 @@ void Lobby::draw(sf::RenderWindow& window)
 }
 void Lobby::drawUserWorlds(sf::RenderWindow& window)
 {
-    //Si le jeu a commencé et on est en mode multijoueur, on affiche les grilles des joueurs adverses
     if (client == NULL || !gameStarted) return;
 
     game->drawUserWorlds();
     sf::Sprite spr = sf::Sprite(game->render.getTexture());
     window.draw(spr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*int cell_size = 35;
+     int mini_cell_size = 20;
+     int border = 15;
+     int starty = 52;
+     int startx = cell_size * 10 + 100;
+     std::vector<sf::Color> colors = GetCellColors();
+
+
+     int step = 0;
+     int usr = -1;
+
+     for (int n = 0; n < 2; n++) {
+
+         int posy = step * mini_cell_size * 22 + step * 66;
+
+         usr++;
+         if (client->getId() == usr) {
+             usr++;
+         }
+
+
+
+         step++;
+         int** world = client->getUserWorld(usr);
+
+         int k = 0;
+
+         world[0][0] = 0;
+         for (int i = 0; i < 22; ++i) {
+             int temp = world[i][0];
+             for (int j = 0; j < 9; ++j) {
+                 world[i][j] = world[i][j + 1];
+             }
+             world[i][9] = temp;
+         }
+         game->drawText(client->getName(usr), 40, 500, posy,false);
+         for (int x = 0; x < 22; x++) {
+             for (int y = 0; y < 10; y++) {
+                 sf::RectangleShape rectangle1;
+                 int cell_value = world[x][y];
+
+                 sf::RectangleShape rectangle;
+                 rectangle1.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
+                 rectangle1.setPosition(y * mini_cell_size + 1000, posy + x * mini_cell_size + 50);
+                 rectangle1.setOutlineThickness(1);
+                 rectangle1.setOutlineColor(sf::Color::Cyan);
+
+                 rectangle1.setFillColor(colors[cell_value]);
+
+                 window.draw(rectangle1);
+             }
+
+
+         }
+
+         game->drawText(client->getName(usr), 40, 500, posy, false);
+         sf::Sprite spr = sf::Sprite(game->render.getTexture());
+         window.draw(spr);
+
+
+         int pieceID = client->getPieceID(usr);
+         int* piece = client->getPiece(usr);
+
+         for (int p = 0; p < 8; p += 2) {
+
+             /*block.setColor(PIECE_COLOR[piece[p] - 1]);
+             block.setPosition(posx + (p % 4 + piece_x) * tile, posy + (p / 4 + piece_y) * tile);
+             window.draw(block);*/
+             /*
+                     sf::RectangleShape rectangle;
+                     rectangle.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
+                     rectangle.setPosition(piece[p + 1] * mini_cell_size + 1000, posy + piece[p] * mini_cell_size + 50);
+                     // colors[pieceID].a = 255;
+
+                     rectangle.setFillColor(colors[pieceID]);
+
+                     window.draw(rectangle);
+                 }
+
+             }/*
+             usr++;
+             int** world = client->getUserWorld(usr);
+             int posy = 300;
+             int posx = 1000 + 22 * mini_cell_size;
+             int k = 0;
+
+             world[0][0] = 0;
+             for (int i = 0; i < 22; ++i) {
+                 int temp = world[i][0];
+                 for (int j = 0; j < 9; ++j) {
+                     world[i][j] = world[i][j + 1];
+                 }
+                 world[i][9] = temp;
+             }
+             game->drawText(client->getName(usr), 40, posx, posy,false);
+             for (int x = 0; x < 22; x++) {
+                 for (int y = 0; y < 10; y++) {
+                     sf::RectangleShape rectangle1;
+                     int cell_value = world[x][y];
+
+                     sf::RectangleShape rectangle;
+                     rectangle1.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
+                     rectangle1.setPosition(y * mini_cell_size + posx, posy + x * mini_cell_size + 11);
+                     rectangle1.setOutlineThickness(1);
+                     rectangle1.setOutlineColor(sf::Color::Cyan);
+
+                     rectangle1.setFillColor(colors[cell_value]);
+
+                     window.draw(rectangle1);
+                 }
+
+
+             }/*
+
+             int pieceID = client->getPieceID(usr);
+             int* piece = client->getPiece(usr);
+
+             for (int p = 0; p < 8; p += 2) {
+
+                 /*block.setColor(PIECE_COLOR[piece[p] - 1]);
+                 block.setPosition(posx + (p % 4 + piece_x) * tile, posy + (p / 4 + piece_y) * tile);
+                 window.draw(block);*/
+                 /*
+                         sf::RectangleShape rectangle;
+                         rectangle.setSize(sf::Vector2f(mini_cell_size - 1, mini_cell_size - 1));
+                         rectangle.setPosition(piece[p + 1] * mini_cell_size + posx, posy + piece[p] * mini_cell_size + 11);
+                         // colors[pieceID].a = 255;
+
+                         rectangle.setFillColor(colors[pieceID]);
+
+                         window.draw(rectangle);
+                     }*/
 
 }
