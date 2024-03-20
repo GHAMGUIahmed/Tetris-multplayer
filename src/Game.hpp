@@ -9,8 +9,9 @@ class Game
 protected:
 	std::vector<Block> blocks;
 	
-	bool Animated; 
-	int BlockGiven; 
+	bool Animated; // utilisé pour savoir si le current block est en train de verrouiller
+	//on anime son verrou  
+	int BlockGiven; // utile pour définir le niveau
 	bool gameOver;
 	int score;
 	int level;
@@ -18,16 +19,15 @@ protected:
 	sf::Music musicGame;
 	sf::Sound soundRotate;
 	sf::Sound soundClear;
-	sf::SoundBuffer buffer;
+	sf::SoundBuffer buffer; // les fichiers de sound 
 	sf::SoundBuffer buffer1;
-	sf::SoundBuffer DropBuffer;
+	sf::SoundBuffer DropBuffer; 
 	sf::Sound Drop;
-	sf::Clock ClockFit;
-	sf::Clock ClockChute;
-	sf::Font font;
-	sf::Clock clockAnimated;
 
-	//sf::RenderTexture render;
+	sf::Clock ClockFit; // un temp avant de verrouiller le block
+	sf::Clock ClockChute; // aprés un certain temp le block descend 
+	sf::Font font;
+	sf::Clock clockAnimated; // un temps pour l'animation
 
 
 
@@ -43,11 +43,11 @@ protected:
 	void RotateBlock(int i);
 	// passer d'un block à un autre block 
 	void LockBlock();
-	bool BlockFits();
+	bool BlockFits(); 
 	bool IsBlookOutside();
 	
 	void Reset();
-	void chutelibre(); // pour faire decsendre le block automatiquement 
+	void chutelibre(); // pour faire descendre le block automatiquement 
 	int GetClockChuteMicro();
 	void UpdateLevel();
 	void UpdateScore(int linesCleared, int moveDownPoints);

@@ -2,9 +2,9 @@
 #include"position.hpp"
 #include<iostream> 
 
-/* ce fichier définit les différents block qu'on va les utliser duarant le jeu 
+/* ce fichier définit les différents block qu'on va les utiliser durant le jeu 
 chaque block avec un id différent qui est son couleur */
-// la fonction move est utilisé pour que les blocs aparaissent en haut et au milieux du grid . 
+// la fonction move est utilisé pour que les blocs apparaissent en haut et au milieux du grid . 
 // les valeurs de next_offset et les valeurs passées dans la fonctions move différent d'un bloc à un autre ,
 //  en fonction de cellules occupées pour chaque bloc . 
 class LBlock :public Block

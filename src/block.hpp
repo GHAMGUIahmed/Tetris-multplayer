@@ -9,8 +9,8 @@ class Block
 public : 
 	int id;
 	std::map < int, std::map<int, std::vector<Position>> > cells; 
-	// pour réprésenter tous les positions possible que le bloc peut prendre 
-	int rotationState;   // represente la rotation dde bloc, elle est le  premier int de cells 
+	// pour représenter tous les positions possible que le bloc peut prendre 
+	int rotationState;   // représente la rotation dde bloc, elle est le  premier int de cells 
 	
 	int pivot;
 	/* Le deuxième entier dans la structure cells joue le rôle de  la manipulation des rotations de blocs
@@ -27,7 +27,7 @@ public :
 	// cette fonction pour une raison d'animation quand on fige le block
 	void drawtra(sf::RenderTexture& texture, int offsetx, int offsety);
 	void move(int rows, int cols);
-	std::vector<Position> get_cell_postion(); // retorune les positions courantes du bloc 
+	std::vector<Position> get_cell_postion(); // retourne les positions courantes du bloc 
 	void Rotate(int i );
 	int getLastRow();
 	void initialiserPivot(); // pour changer la valeur de pivot selon sa pos dans le Grid 
