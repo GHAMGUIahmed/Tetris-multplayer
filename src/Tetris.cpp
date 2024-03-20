@@ -25,7 +25,7 @@ void Tetris::drawRectangle(float length, float width, float x, float y)
 
 
 
-
+// dans le mode offline 
 void Tetris::draw()
 {
     // dessiner le jeu 

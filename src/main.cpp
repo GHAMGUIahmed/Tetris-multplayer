@@ -1,5 +1,4 @@
 
-
 #include"lobby.hpp"
 int main()
 {
@@ -37,10 +36,12 @@ int main()
 
         KeyboardManager::keyboardUpdate(focus);
 
-        lobby.update();
         window.clear(background);
+
         lobby.draw(window);
         lobby.drawUserWorlds(window);
+        lobby.update();
+
         window.display();
 
     }

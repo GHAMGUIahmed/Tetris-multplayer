@@ -154,7 +154,6 @@ void Game::LockBlock() // pour figer le bloque
 {
 
 	std::vector<Position> tiles = currentBlock.get_cell_postion();
-	std::cout << tiles[0].row << std::endl;
 
 	for (Position item : tiles)
 	{

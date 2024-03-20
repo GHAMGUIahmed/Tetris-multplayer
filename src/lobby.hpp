@@ -16,18 +16,18 @@ class Lobby
         Join,
         Host,
         Singleplayer
-    };
+    }; // le state de user dans la premiére fenêtre 
 
     enum Typing {
         Name,
         Address,
         Nothing
-    };
+    }; // l'utilisateur est en train de faire quoi 
 
     State state;
     sf::Font lobbyFont;
     sf::Text lobbyText;
-    sf::Texture texture;
+    sf::Texture texture; // pour le background 
 
     Server* server;
     Client* client;
@@ -41,10 +41,10 @@ class Lobby
 
     std::string options[3] =
     {
-    "Singleplayer",
-    "Join game",
-    "Host game"
-    };
+    "Partie Solo",
+    "Rejoindre une Partie ",
+    "Hébérger une Partie"
+    }; 
 
     int selected = 0;
 
