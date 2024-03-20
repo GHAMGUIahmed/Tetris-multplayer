@@ -2,7 +2,7 @@
 #include<vector>
 #include<SFML/Graphics.hpp>
 #include"position.hpp" 
-
+/* cette classe sert bien à représenter l'espace du jeu où les block vont se placer  */
 class Grid
 { 
 public : 

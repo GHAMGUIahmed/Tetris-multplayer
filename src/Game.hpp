@@ -2,6 +2,7 @@
 #include"Grid.hpp"
 #include"blocks.hpp"
 #include<SFML/Audio.hpp> 
+/* cette classe pour définir les règles du jeu (level - score , mouvement ... )  */
 class Game
 {
 

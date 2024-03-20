@@ -3,6 +3,8 @@
 #include<map>
 #include"position.hpp"
 #include"colors.hpp"
+/* cette classe pour la représentation du block de maniérer générale mouvement - rotation 
+- dessiner le block  */
 class Block
 
 {
