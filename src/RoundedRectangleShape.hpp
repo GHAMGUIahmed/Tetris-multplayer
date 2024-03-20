@@ -10,21 +10,17 @@ namespace sf
     public:
 
         explicit RoundedRectangleShape(const Vector2f& size = Vector2f(0, 0), float radius = 0, unsigned int cornerPointCount = 0); 
-        // Constructeur de la classe RoundedRectangleShape
 
         void setSize(const Vector2f& size);
-        // Méthode pour définir la taille du RoundedRectangleShape
 
 
         const Vector2f& getSize() const;
-        // Méthode pour obtenir la taille actuelle du RoundedRectangleShape
 
 
         void setCornersRadius(float radius);
         // Méthode pour définir le rayon des coins du RoundedRectangleShape
 
         float getCornersRadius() const;
-        // Méthode pour obtenir le rayon des coins du RoundedRectangleShape
 
 
         void setCornerPointCount(unsigned int count);
@@ -40,10 +36,10 @@ namespace sf
 
     private:
 
-        Vector2f mySize;  // Taille du RoundedRectangleShape
+        Vector2f mySize;  
 
-        float myRadius;  // rayon des coins du RoundedRectangleShape
-        unsigned int myCornerPointCount;  // Nombre de points par coin du RoundedRectangleShape
+        float myRadius;  
+        unsigned int myCornerPointCount;  
 
     };
 }
