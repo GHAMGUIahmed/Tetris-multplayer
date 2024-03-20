@@ -9,7 +9,7 @@ de dessiner le game en mode offline et online */
 class Tetris :public Game
 {
 public:
-	sf::RenderTexture render;
+	sf::RenderTexture render; // pour dessiner 
 	Client* client; 
 	bool gameStarted = false;
 	Tetris(Client* cli) :client(cli), gameStarted(false)
