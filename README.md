@@ -7,7 +7,7 @@ Tetris Multiplayer est une version du jeu classique Tetris, développée en C++ 
 ## Description
 
 Ce projet est une adaptation du célèbre jeu Tetris, offrant une expérience multijoueur où les joueurs peuvent compétitionner les uns contre les autres sur un réseau local. Il propose toutes les fonctionnalités classiques du Tetris, telles que le défilement et la rotation des pièces, la gestion des lignes, et bien plus encore, tout en ajoutant une dimension sociale en permettant aux joueurs de s'affronter en temps réel.
-#Remarque 
+##Remarque 
 Ajoutez les fichiers .dll de la bibliothèque SFML dans un dossier nommé "bin".
 
 
